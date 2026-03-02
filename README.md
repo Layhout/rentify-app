@@ -1,0 +1,3 @@
+# rentify_app
+
+A new Flutter project.
