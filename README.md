@@ -17,7 +17,7 @@ TBD
 
 ## Project Structure
 
-This project is structured based on the offcial [Flutter package structure](https://docs.flutter.dev/app-architecture/case-study#package-structure)guidelines and uses a lightweight Clean Architecture approach to maintain clear separation of concerns, making the codebase easier to scale and maintain.
+This project is structured based on the offcial [Flutter package structure](https://docs.flutter.dev/app-architecture/case-study#package-structure) guidelines and uses a lightweight Clean Architecture approach to maintain clear separation of concerns, making the codebase easier to scale and maintain.
 
 ```markdown
 lib/
