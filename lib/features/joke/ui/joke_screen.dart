@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rentify_app/ui/core/theme/theme_extensions.dart';
-import 'package:rentify_app/ui/joke/view_models/joke_view_model.dart';
+import 'package:rentify_app/common_widgets/theme/theme_extensions.dart';
+import 'package:rentify_app/features/joke/view_model/joke_view_model.dart';
 
 class JokeScreen extends ConsumerWidget {
   const JokeScreen({super.key});

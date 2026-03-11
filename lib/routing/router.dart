@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rentify_app/routing/routes.dart';
-import 'package:rentify_app/ui/joke/joke_screen.dart';
+import 'package:rentify_app/features/joke/ui/joke_screen.dart';
 
 part 'router.g.dart';
 
