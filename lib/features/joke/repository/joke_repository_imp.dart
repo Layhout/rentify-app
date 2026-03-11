@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:rentify_app/config/providers/joke_api/joke_api_provider.dart';
-import 'package:rentify_app/data/model/joke/joke_model.dart';
-import 'package:rentify_app/data/repositories/joke/joke_repository.dart';
-import 'package:rentify_app/domain/models/joke.dart';
+import 'package:rentify_app/features/joke/model/joke_model.dart';
+import 'package:rentify_app/features/joke/repository/joke_repository.dart';
+import 'package:rentify_app/features/joke/model/joke.dart';
 import 'package:rentify_app/utils/dio/api_client.dart';
 import 'package:rentify_app/utils/dio/auth_interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

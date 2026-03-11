@@ -21,29 +21,26 @@ TBD
 lib/
 └── features/
     ├── <features_name>/
-    │   ├── domain/
-    │   │   └── entites/
-    │   │       └── <entity_name>.dart
+    │   ├── model/
+    │   │   ├── <entity_name>.dart
+    │   │   ├── <model_name>_model.dart
+    │   │   ├── <model_name>_model.freeze.dart
+    │   │   └── <model_name>_model.g.dart
     │   │
-    │   ├── data/
-    │   │   ├── repositories/
-    │   │   │   └── <repository_name>.dart
-    │   │   │
-    │   │   └── models/
-    │   │       └── <model_name>.dart
+    │   ├── repository/
+    │   │   ├── <repository_name>.dart
+    │   │   └── <repository_name>_imp.dart
+    │   │
+    │   ├── view_model/
+    │   │   ├── <provider_name>_state.dart
+    │   │   ├── <provider_name>_state.freeze.dart
+    │   │   ├── <provider_name>_view_model.dart
+    │   │   └── <provider_name>_view_model.g.dart
     │   │
     │   └── ui/
     │       ├── widgets/
-    │       │   └── <widget_name>.dart
-    │       │
-    │       └── <screen_name>/
-    │           ├── states/
-    │           │   └── <state_name>_state.dart
-    │           │
-    │           ├── view_models/
-    │           │   └── <view_model_name>_view_model.dart
-    │           │
-    │           └── <screen_name>_screen.dart
+    │       │   └── <widget_name>dart
+    │       └── <screen_name>_screen.dart
     │
     ├── configs
     ├── utils

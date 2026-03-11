@@ -1,4 +1,4 @@
-import 'package:rentify_app/domain/models/joke.dart';
+import 'package:rentify_app/features/joke/model/joke.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'joke_model.freezed.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rentify_app/config/di.dart';
 import 'package:rentify_app/config/eager_init_provider.dart';
 import 'package:rentify_app/routing/router.dart';
-import 'package:rentify_app/ui/core/theme/app_theme.dart';
+import 'package:rentify_app/common_widgets/theme/app_theme.dart';
 import 'package:rentify_app/utils/provider_observer.dart';
 
 void main() async {
