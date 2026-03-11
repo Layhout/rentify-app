@@ -17,57 +17,41 @@ TBD
 
 ## Project Structure
 
-This project is structured based on the offcial [Flutter package structure](https://docs.flutter.dev/app-architecture/case-study#package-structure) guidelines and uses a lightweight Clean Architecture approach to maintain clear separation of concerns, making the codebase easier to scale and maintain.
-
 ```markdown
 lib/
-├── ui/
-│   ├── core/
-│   │   └── ui/
-│   │       ├── shared_widgets/
-│   │       └── themes/
-│   │
-│   └── <feature_name>/
-│       ├── view_models/
-│       │   └── <view_model_class>.dart
-│       │
-│       └── widgets/
-│           ├── <feature_name>_screen.dart
-│           └── <other_widgets>
-│
-├── domain/
-│   └── models/
-│       └── <model_name>.dart
-│
-├── data/
-│   ├── repositories/
-│   │   └── <repository_class>.dart
-│   │
-│   ├── services/
-│   │   └── <service_class>.dart
-│   │
-│   └── model/
-│       └── <api_model_class>.dart
-│
-├── config/
-├── utils/
-├── routing/
-│
-├── main_staging.dart
-├── main_development.dart
-└── main.dart
-
-
-test/                  # Contains unit and widget tests
-├── data/
-├── domain/
-├── ui/
-└── utils/
-
-
-testing/               # Contains mocks used by tests
-├── fakes/
-└── models/
+└── features/
+    ├── <features_name>/
+    │   ├── domain/
+    │   │   └── entites/
+    │   │       └── <entity_name>.dart
+    │   │
+    │   ├── data/
+    │   │   ├── repositories/
+    │   │   │   └── <repository_name>.dart
+    │   │   │
+    │   │   └── models/
+    │   │       └── <model_name>.dart
+    │   │
+    │   └── ui/
+    │       ├── widgets/
+    │       │   └── <widget_name>.dart
+    │       │
+    │       └── <screen_name>/
+    │           ├── states/
+    │           │   └── <state_name>_state.dart
+    │           │
+    │           ├── view_models/
+    │           │   └── <view_model_name>_view_model.dart
+    │           │
+    │           └── <screen_name>_screen.dart
+    │
+    ├── configs
+    ├── utils
+    ├── routing
+    ├── constants
+    ├── localization
+    ├── common_widgets
+    └── extensions
 ```
 
 ## Run steps
