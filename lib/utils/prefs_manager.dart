@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,30 +25,12 @@ final class PrefsSerializationException extends PrefsException {
     : super('Failed to serialize/deserialize value for key "$key": $cause');
 }
 
-// ─── Change event ────────────────────────────────────────────────────────────
-
-/// Emitted on the [PrefsManager.changes] stream after every write or removal.
-final class PrefsChangeEvent<T> {
-  const PrefsChangeEvent({required this.key, required this.oldValue, required this.newValue});
-
-  final String key;
-  final T? oldValue;
-  final T? newValue;
-
-  bool get wasRemoved => newValue == null;
-  bool get wasAdded => oldValue == null && newValue != null;
-
-  @override
-  String toString() => 'PrefsChangeEvent(key: $key, old: $oldValue, new: $newValue)';
-}
-
 // ─── Core manager ────────────────────────────────────────────────────────────
 
 /// A singleton wrapper around [SharedPreferences] with:
 ///   • Null-safe typed getters / setters
 ///   • JSON object & list serialization
 ///   • Namespaced key grouping
-///   • Reactive [changes] stream
 ///   • Bulk operations (getAll, removeAll, migrate)
 ///   • In-memory cache for zero-latency reads
 ///
@@ -65,7 +46,6 @@ final class PrefsManager {
   static PrefsManager? _instance;
   static SharedPreferences? _prefs;
   final _cache = <String, Object?>{};
-  final _changesController = StreamController<PrefsChangeEvent<dynamic>>.broadcast();
 
   // ── Singleton lifecycle ──────────────────────────────────────────────────
 
@@ -96,19 +76,6 @@ final class PrefsManager {
     for (final key in _prefs!.getKeys()) {
       _cache[key] = _prefs!.get(key);
     }
-  }
-
-  // ── Reactive stream ──────────────────────────────────────────────────────
-
-  /// Emits a [PrefsChangeEvent] after every successful write or removal.
-  Stream<PrefsChangeEvent<dynamic>> get changes => _changesController.stream;
-
-  /// Filters [changes] to a specific key.
-  Stream<PrefsChangeEvent<T>> changesFor<T>(String key) =>
-      changes.where((e) => e.key == key).cast<PrefsChangeEvent<T>>();
-
-  void _emit<T>(String key, T? oldValue, T? newValue) {
-    _changesController.add(PrefsChangeEvent<T>(key: key, oldValue: oldValue, newValue: newValue));
   }
 
   // ── Primitive getters / setters ──────────────────────────────────────────
@@ -221,11 +188,9 @@ final class PrefsManager {
 
   /// Removes a single key. Returns `true` on success.
   Future<bool> remove(String key) async {
-    final old = _cache[key];
     final success = await _prefs!.remove(key);
     if (success) {
       _cache.remove(key);
-      _emit(key, old, null);
     }
     return success;
   }
@@ -240,13 +205,9 @@ final class PrefsManager {
 
   /// Removes all stored values. Use with caution.
   Future<bool> clear() async {
-    final snapshot = Map<String, Object?>.from(_cache);
     final success = await _prefs!.clear();
     if (success) {
       _cache.clear();
-      for (final entry in snapshot.entries) {
-        _emit(entry.key, entry.value, null);
-      }
     }
     return success;
   }
@@ -297,11 +258,9 @@ final class PrefsManager {
   }
 
   Future<bool> _set<T extends Object>(String key, T value) async {
-    final old = _cache[key];
     final success = await _writeRaw(key, value);
     if (success) {
       _cache[key] = value;
-      _emit<T>(key, old as T?, value);
     }
     return success;
   }
@@ -315,9 +274,8 @@ final class PrefsManager {
     _ => throw PrefsTypeMismatchException(key, Object, value.runtimeType),
   };
 
-  /// Disposes the change stream. Call in tests or if you need cleanup.
+  /// Disposes the manager. Call in tests or if you need cleanup.
   Future<void> dispose() async {
-    await _changesController.close();
     _instance = null;
     _prefs = null;
   }
@@ -389,12 +347,6 @@ final class NamespacedPrefs {
 
   /// Removes all keys under this namespace.
   Future<void> clearNamespace() => _manager.removeWhere((k) => k.startsWith('$_namespace.'));
-
-  // ── Reactive ─────────────────────────────────────────────────────────────
-
-  Stream<PrefsChangeEvent<T>> changesFor<T>(String key) => _manager.changesFor<T>(_k(key));
-
-  Stream<PrefsChangeEvent<dynamic>> get allChanges => _manager.changes.where((e) => e.key.startsWith('$_namespace.'));
 }
 
 // ─── Strongly-typed key abstraction ─────────────────────────────────────────
@@ -438,6 +390,4 @@ final class PrefsKey<T> {
 
   Future<bool> remove() => PrefsManager.instance.remove(key);
   bool exists() => PrefsManager.instance.containsKey(key);
-
-  Stream<PrefsChangeEvent<T>> get changes => PrefsManager.instance.changesFor<T>(key);
 }

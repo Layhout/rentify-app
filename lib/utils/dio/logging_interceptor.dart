@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 /// Pretty-prints requests and responses to the console.
 /// Disable or replace with your preferred logger in production.
@@ -40,7 +41,6 @@ class LoggingInterceptor extends Interceptor {
   }
 
   void _log(String message) {
-    // ignore: avoid_print
-    print('[ApiClient] $message');
+    debugPrint('🌐 [ApiClient] $message');
   }
 }
