@@ -32,10 +32,10 @@ lib/
     │   │   └── <repository_name>_imp.dart
     │   │
     │   ├── view_model/
-    │   │   ├── <provider_name>_state.dart
-    │   │   ├── <provider_name>_state.freeze.dart
-    │   │   ├── <provider_name>_view_model.dart
-    │   │   └── <provider_name>_view_model.g.dart
+    │   │   ├── <view_model_name>_state.dart
+    │   │   ├── <view_model_name>_state.freeze.dart
+    │   │   ├── <view_model_name>_view_model.dart
+    │   │   └── <view_model_name>_view_model.g.dart
     │   │
     │   └── ui/
     │       ├── widgets/
