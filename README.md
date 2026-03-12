@@ -31,11 +31,11 @@ lib/
     │   │   ├── <repository_name>.dart
     │   │   └── <repository_name>_imp.dart
     │   │
-    │   ├── view_model/
-    │   │   ├── <view_model_name>_state.dart
-    │   │   ├── <view_model_name>_state.freeze.dart
-    │   │   ├── <view_model_name>_view_model.dart
-    │   │   └── <view_model_name>_view_model.g.dart
+    │   ├── provider/
+    │   │   ├── <provider>_state.dart
+    │   │   ├── <provider>_state.freeze.dart
+    │   │   ├── <provider>_view_model.dart
+    │   │   └── <provider>_view_model.g.dart
     │   │
     │   └── ui/
     │       ├── widgets/

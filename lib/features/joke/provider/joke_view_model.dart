@@ -1,6 +1,6 @@
 import 'package:rentify_app/features/joke/repository/joke_repository.dart';
 import 'package:rentify_app/features/joke/repository/joke_repository_imp.dart';
-import 'package:rentify_app/features/joke/view_model/joke_state.dart';
+import 'package:rentify_app/features/joke/provider/joke_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'joke_view_model.g.dart';
