@@ -21,7 +21,7 @@ final class JokeApiClientProvider
         argument: null,
         retry: null,
         name: r'jokeApiClientProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,4 +48,4 @@ final class JokeApiClientProvider
   }
 }
 
-String _$jokeApiClientHash() => r'3feb1e6cfdcf80923480a4ff21d02426b7957e51';
+String _$jokeApiClientHash() => r'fcd6f40af99e4f73c10fdd56c373aea56499c121';

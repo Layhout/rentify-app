@@ -3,30 +3,49 @@
 part of 'router.dart';
 
 // **************************************************************************
-// GoRouterGenerator
+// RiverpodGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [$jokeRoute];
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-RouteBase get $jokeRoute =>
-    GoRouteData.$route(path: '/joke', factory: $JokeRoute._fromState);
+@ProviderFor(router)
+final routerProvider = RouterProvider._();
 
-mixin $JokeRoute on GoRouteData {
-  static JokeRoute _fromState(GoRouterState state) => JokeRoute();
+final class RouterProvider
+    extends $FunctionalProvider<GoRouter, GoRouter, GoRouter>
+    with $Provider<GoRouter> {
+  RouterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'routerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
-  String get location => GoRouteData.$location('/joke');
+  String debugGetCreateSourceHash() => _$routerHash();
+
+  @$internal
+  @override
+  $ProviderElement<GoRouter> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  void go(BuildContext context) => context.go(location);
+  GoRouter create(Ref ref) {
+    return router(ref);
+  }
 
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GoRouter value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GoRouter>(value),
+    );
+  }
 }
+
+String _$routerHash() => r'd96e4bb2a9b6c3f22669fcbcfa14e3c07d9d2c35';

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rentify_app/config/di.dart';
 import 'package:rentify_app/config/eager_init_provider.dart';
-import 'package:rentify_app/routing/router.dart';
 import 'package:rentify_app/common_widgets/theme/app_theme.dart';
+import 'package:rentify_app/routing/router.dart';
 import 'package:rentify_app/utils/provider_observer.dart';
 
 void main() async {
@@ -14,11 +14,13 @@ void main() async {
   runApp(ProviderScope(observers: [AppObserver()], child: const MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+
     return EagerInitProvider(
       child: MaterialApp.router(
         theme: AppTheme.lightTheme,
