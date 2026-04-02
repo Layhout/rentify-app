@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_constants.dart';
 
 /// AppTheme provides light and dark theme configurations with Material 3 support
 /// Generated with Flutter Theme Generator - Clean, modular, and maintainable
-/// 
+///
 /// Features:
 /// ✅ Uses AppConstants for consistent design tokens
 /// ✅ Modular structure with separate theme components
@@ -147,10 +148,7 @@ class AppTheme {
 
   /// Light medium contrast color scheme
   static ColorScheme lightMediumContrastScheme() {
-    return lightScheme().copyWith(
-      primary: Color(0xFFba5336),
-      surface: Color(0xFFfaf6f9),
-    );
+    return lightScheme().copyWith(primary: Color(0xFFba5336), surface: Color(0xFFfaf6f9));
   }
 
   /// Light high contrast color scheme
@@ -164,10 +162,7 @@ class AppTheme {
 
   /// Dark medium contrast color scheme
   static ColorScheme darkMediumContrastScheme() {
-    return darkScheme().copyWith(
-      primary: Color(0xFFc45d40),
-      surface: Color(0xFF150e12),
-    );
+    return darkScheme().copyWith(primary: Color(0xFFc45d40), surface: Color(0xFF150e12));
   }
 
   /// Dark high contrast color scheme
@@ -189,14 +184,24 @@ class AppTheme {
     useMaterial3: true,
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
-    textTheme: _textTheme,
+    textTheme: GoogleFonts.splineSansTextTheme(_textTheme).copyWith(
+      displayLarge: GoogleFonts.playfairDisplay(textStyle: _textTheme.displayLarge),
+      displayMedium: GoogleFonts.playfairDisplay(textStyle: _textTheme.displayMedium),
+      displaySmall: GoogleFonts.playfairDisplay(textStyle: _textTheme.displaySmall),
+      headlineLarge: GoogleFonts.playfairDisplay(textStyle: _textTheme.headlineLarge),
+      headlineMedium: GoogleFonts.playfairDisplay(textStyle: _textTheme.headlineMedium),
+      headlineSmall: GoogleFonts.playfairDisplay(textStyle: _textTheme.headlineSmall),
+      titleLarge: GoogleFonts.playfairDisplay(textStyle: _textTheme.titleLarge),
+      titleMedium: GoogleFonts.playfairDisplay(textStyle: _textTheme.titleMedium),
+      titleSmall: GoogleFonts.playfairDisplay(textStyle: _textTheme.titleSmall),
+    ),
     appBarTheme: colorScheme.brightness == Brightness.light ? _lightAppBarTheme : _darkAppBarTheme,
     elevatedButtonTheme: elevatedButtonTheme(colorScheme),
     filledButtonTheme: filledButtonTheme(colorScheme),
     textButtonTheme: textButtonTheme(colorScheme),
     outlinedButtonTheme: outlinedButtonTheme(colorScheme),
     iconButtonTheme: iconButtonTheme(colorScheme),
-    inputDecorationTheme: _inputDecorationTheme,
+    inputDecorationTheme: inputDecorationTheme(colorScheme),
     cardTheme: _cardTheme,
     chipTheme: _chipTheme,
     progressIndicatorTheme: _progressIndicatorTheme,
@@ -214,7 +219,6 @@ class AppTheme {
   // ═══════════════════════════════════════════════════════════════════════════════
   // 🎨 THEME COMPONENTS - All using AppConstants for consistency
   // ═══════════════════════════════════════════════════════════════════════════════
-
 
   /// Text theme using AppConstants for consistent font sizes
   static final TextTheme _textTheme = TextTheme(
@@ -310,7 +314,6 @@ class AppTheme {
     ),
   );
 
-
   /// Elevated button theme - M3 compliant with WidgetStateProperty
   static ElevatedButtonThemeData elevatedButtonTheme(ColorScheme colorScheme) => ElevatedButtonThemeData(
     style: ButtonStyle(
@@ -321,15 +324,10 @@ class AppTheme {
         return AppConstants.elevationLevel2;
       }),
       padding: WidgetStateProperty.all(
-        EdgeInsets.symmetric(
-          horizontal: AppConstants.spacingLG,
-          vertical: AppConstants.spacingMD,
-        ),
+        EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
       ),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
       ),
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -363,15 +361,10 @@ class AppTheme {
   static FilledButtonThemeData filledButtonTheme(ColorScheme colorScheme) => FilledButtonThemeData(
     style: ButtonStyle(
       padding: WidgetStateProperty.all(
-        EdgeInsets.symmetric(
-          horizontal: AppConstants.spacingLG,
-          vertical: AppConstants.spacingMD,
-        ),
+        EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
       ),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
       ),
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -401,15 +394,10 @@ class AppTheme {
   static TextButtonThemeData textButtonTheme(ColorScheme colorScheme) => TextButtonThemeData(
     style: ButtonStyle(
       padding: WidgetStateProperty.all(
-        EdgeInsets.symmetric(
-          horizontal: AppConstants.spacingLG,
-          vertical: AppConstants.spacingMD,
-        ),
+        EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
       ),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
       ),
       foregroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -436,15 +424,10 @@ class AppTheme {
   static OutlinedButtonThemeData outlinedButtonTheme(ColorScheme colorScheme) => OutlinedButtonThemeData(
     style: ButtonStyle(
       padding: WidgetStateProperty.all(
-        EdgeInsets.symmetric(
-          horizontal: AppConstants.spacingLG,
-          vertical: AppConstants.spacingMD,
-        ),
+        EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
       ),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
       ),
       side: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -494,27 +477,14 @@ class AppTheme {
     ),
   );
 
-
   /// Input decoration theme
-  static final InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
-    contentPadding: EdgeInsets.symmetric(
-      horizontal: AppConstants.spacingMD,
-      vertical: AppConstants.spacingMD,
-    ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppConstants.radiusMD),
-    ),
+  static InputDecorationTheme inputDecorationTheme(ColorScheme colorScheme) => InputDecorationTheme(
+    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: AppConstants.spacingSM),
+    border: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.outline)),
+    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.outline)),
+    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.primary)),
+    errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.error)),
   );
-
 
   /// App bar theme for light mode
   static final AppBarTheme _lightAppBarTheme = AppBarTheme(
@@ -536,20 +506,13 @@ class AppTheme {
   static final CardThemeData _cardTheme = CardThemeData(
     elevation: AppConstants.elevationLevel1,
     margin: EdgeInsets.all(AppConstants.spacingSM),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppConstants.radiusLG),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusLG)),
   );
 
   /// Chip theme
   static final ChipThemeData _chipTheme = ChipThemeData(
-    padding: EdgeInsets.symmetric(
-      horizontal: AppConstants.spacingMD,
-      vertical: AppConstants.spacingSM,
-    ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppConstants.radiusFull),
-    ),
+    padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
   );
 
   /// Progress indicator theme
@@ -568,10 +531,7 @@ class AppTheme {
 
   /// Tab bar theme
   static final TabBarThemeData _tabBarTheme = TabBarThemeData(
-    labelPadding: EdgeInsets.symmetric(
-      horizontal: AppConstants.spacingMD,
-      vertical: AppConstants.spacingSM,
-    ),
+    labelPadding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
   );
 
   /// Switch theme - uses colorScheme from theme() parameter
@@ -592,9 +552,7 @@ class AppTheme {
 
   /// Checkbox theme
   static final CheckboxThemeData _checkboxTheme = CheckboxThemeData(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppConstants.radiusXS),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusXS)),
   );
 
   /// Radio theme
@@ -608,10 +566,10 @@ class AppTheme {
 extension CustomColors on ColorScheme {
   /// Success color for positive actions and states
   Color get success => const Color(0xFF2E7D32);
-  
+
   /// Warning color for caution states
   Color get warning => const Color(0xFFF57C00);
-  
+
   /// Info color for informational states
   Color get info => const Color(0xFF1976D2);
 }

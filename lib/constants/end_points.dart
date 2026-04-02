@@ -1,4 +1,4 @@
-abstract class EndPoints {
+abstract final class EndPoints {
   // TODO: implement base url
   static const String baseUrl = "";
 }

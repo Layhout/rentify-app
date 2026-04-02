@@ -21,7 +21,7 @@ final class ApiClientProvider
         argument: null,
         retry: null,
         name: r'apiClientProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,4 +48,4 @@ final class ApiClientProvider
   }
 }
 
-String _$apiClientHash() => r'503320d9a0534d9fcf434148adf1d5ede155a890';
+String _$apiClientHash() => r'd1485be7b5c71c91cf9ed5c6b87008a923dd03a1';

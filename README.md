@@ -39,7 +39,7 @@ lib/
     │   │
     │   └── ui/
     │       ├── widgets/
-    │       │   └── <widget_name>dart
+    │       │   └── <widget_name>.dart
     │       └── <screen_name>_screen.dart
     │
     ├── configs
