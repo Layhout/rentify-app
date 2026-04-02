@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rentify_app/config/providers/api/api_provider.dart';
-import 'package:rentify_app/config/providers/joke_api/joke_api_provider.dart';
 import 'package:rentify_app/config/providers/supabase/supabase_provider.dart';
 
 class EagerInitProvider extends ConsumerWidget {
@@ -12,7 +11,6 @@ class EagerInitProvider extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(apiClientProvider);
-    ref.watch(jokeApiClientProvider);
     ref.watch(supabaseProvider);
 
     return child;

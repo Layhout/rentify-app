@@ -10,8 +10,7 @@ class RouterNotifier extends ChangeNotifier {
   final Ref _ref;
 
   RouterNotifier(this._ref) {
-    _ref.listen(authListenerProvider, (previous, next) async {
-      await Future.delayed(const Duration(seconds: 1));
+    _ref.listen(authListenerProvider, (previous, next) {
       notifyListeners();
     });
   }
@@ -30,11 +29,16 @@ GoRouter router(Ref ref) {
       if (authState.isLoading) return Routes.splash;
 
       final isLoggedIn = authState.session != null;
-      final isOnAuthRoute = state.matchedLocation == Routes.login;
+      final isOnSplashRoute = state.matchedLocation == Routes.splash;
+      final isOnPublicRoute = publicRoutes.contains(state.matchedLocation);
+      final isOnPrivateRoute = !isOnPublicRoute;
 
-      if (!isLoggedIn && !isOnAuthRoute) return Routes.login;
-      if (isLoggedIn && isOnAuthRoute) return Routes.home;
-      return null; // no redirect
+      if (isOnSplashRoute && isLoggedIn) return Routes.home;
+      if (isOnSplashRoute && !isLoggedIn) return Routes.onboard;
+
+      if (!isLoggedIn && isOnPrivateRoute) return Routes.onboard;
+      if (isLoggedIn && isOnPublicRoute) return Routes.home;
+      return null;
     },
     routes: $appRoutes,
   );

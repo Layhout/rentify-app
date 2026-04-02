@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'app_constants.dart';
 
 /// 🚀 Flutter Theme Extensions
-/// 
+///
 /// This file provides convenient extensions to make theme usage easier and more intuitive.
 /// Instead of writing Theme.of(context).colorScheme.primary, you can simply use context.colorScheme.primary
-/// 
+///
 /// Generated with Flutter Theme Generator for maximum developer experience.
 
 /// Theme access extensions
@@ -38,40 +38,25 @@ extension ThemeExtensions on BuildContext {
 /// Spacing extensions - Gaps between widgets
 extension SpacingExtensions on BuildContext {
   /// Extra small gap (4px) - For tight layouts, icon-text spacing
-  Widget get gapXS => SizedBox(
-    width: AppConstants.spacingXS,
-    height: AppConstants.spacingXS,
-  );
+  Widget get gapXS => SizedBox(width: AppConstants.spacingXS, height: AppConstants.spacingXS);
 
   /// Small gap (8px) - For compact layouts, button spacing
-  Widget get gapSM => SizedBox(
-    width: AppConstants.spacingSM,
-    height: AppConstants.spacingSM,
-  );
+  Widget get gapSM => SizedBox(width: AppConstants.spacingSM, height: AppConstants.spacingSM);
 
   /// Medium gap (16px) - For standard content spacing, form fields
-  Widget get gapMD => SizedBox(
-    width: AppConstants.spacingMD,
-    height: AppConstants.spacingMD,
-  );
+  Widget get gapMD => SizedBox(width: AppConstants.spacingMD, height: AppConstants.spacingMD);
 
   /// Large gap (24px) - For section spacing, card separation
-  Widget get gapLG => SizedBox(
-    width: AppConstants.spacingLG,
-    height: AppConstants.spacingLG,
-  );
+  Widget get gapLG => SizedBox(width: AppConstants.spacingLG, height: AppConstants.spacingLG);
 
   /// Extra large gap (32px) - For major section breaks
-  Widget get gapXL => SizedBox(
-    width: AppConstants.spacingXL,
-    height: AppConstants.spacingXL,
-  );
+  Widget get gapXL => SizedBox(width: AppConstants.spacingXL, height: AppConstants.spacingXL);
 
   /// Double extra large gap (48px) - For dramatic spacing, screen sections
-  Widget get gapXXL => SizedBox(
-    width: AppConstants.spacingXXL,
-    height: AppConstants.spacingXXL,
-  );
+  Widget get gapXXL => SizedBox(width: AppConstants.spacingXXL, height: AppConstants.spacingXXL);
+
+  /// Custom gap
+  Widget gap(double value) => SizedBox(width: value, height: value);
 }
 
 /// Padding extensions - Space inside widgets
@@ -99,6 +84,10 @@ extension PaddingExtensions on BuildContext {
 
   /// Vertical padding only (top and bottom)
   EdgeInsets paddingVertical(double value) => EdgeInsets.symmetric(vertical: value);
+
+  /// Padding with custom values for only some sides
+  EdgeInsets paddingOnly({double top = 0, double bottom = 0, double left = 0, double right = 0}) =>
+      EdgeInsets.only(top: top, bottom: bottom, left: left, right: right);
 
   /// Responsive padding that adjusts based on screen size
   EdgeInsets get paddingResponsive => AppConstants.getResponsivePadding(mediaQuery.size.width);
@@ -152,8 +141,10 @@ extension ResponsiveExtensions on BuildContext {
 /// Widget extensions - Convenience methods
 extension WidgetExtensions on Widget {
   /// Wrap widget with Padding using all-sides padding
-  Widget paddingAll(double value) => Padding(
-    padding: EdgeInsets.all(value),
+  Widget paddingAll(double value) => Padding(padding: EdgeInsets.all(value), child: this);
+
+  Widget paddingOnly({double top = 0, double bottom = 0, double left = 0, double right = 0}) => Padding(
+    padding: EdgeInsets.only(top: top, bottom: bottom, left: left, right: right),
     child: this,
   );
 
@@ -170,8 +161,7 @@ extension WidgetExtensions on Widget {
   Widget expanded({int flex = 1}) => Expanded(flex: flex, child: this);
 
   /// Wrap with Flexible (for Flex children)
-  Widget flexible({int flex = 1, FlexFit fit = FlexFit.loose}) => 
-    Flexible(flex: flex, fit: fit, child: this);
+  Widget flexible({int flex = 1, FlexFit fit = FlexFit.loose}) => Flexible(flex: flex, fit: fit, child: this);
 
   /// Add opacity to widget
   Widget opacity(double opacity) => Opacity(opacity: opacity, child: this);
@@ -180,16 +170,9 @@ extension WidgetExtensions on Widget {
   Widget onTap(VoidCallback onTap) => GestureDetector(onTap: onTap, child: this);
 
   /// Wrap with SafeArea
-  Widget safeArea({
-    bool top = true,
-    bool bottom = true,
-    bool left = true,
-    bool right = true,
-  }) => SafeArea(
-    top: top,
-    bottom: bottom,
-    left: left,
-    right: right,
-    child: this,
-  );
+  Widget safeArea({bool top = true, bool bottom = true, bool left = true, bool right = true}) =>
+      SafeArea(top: top, bottom: bottom, left: left, right: right, child: this);
+
+  /// Wrap with SizedBox
+  Widget size({double? width, double? height}) => SizedBox(width: width, height: height, child: this);
 }

@@ -14,9 +14,11 @@ class AuthListener extends _$AuthListener {
       state = state.copyWith(isLoading: false);
     });
 
-    client.auth.onAuthStateChange.listen((data) {
+    final subscription = client.auth.onAuthStateChange.listen((data) {
       state = state.copyWith(session: data.session);
     });
+
+    ref.onDispose(subscription.cancel);
 
     return AuthState(isLoading: true, session: client.auth.currentSession);
   }

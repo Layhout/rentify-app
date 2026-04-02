@@ -12,6 +12,7 @@ List<RouteBase> get $appRoutes => [
   $homeRoute,
   $loginRoute,
   $signupRoute,
+  $onboardRoute,
 ];
 
 RouteBase get $jokeRoute =>
@@ -114,6 +115,29 @@ mixin $SignupRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/signup');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $onboardRoute =>
+    GoRouteData.$route(path: '/onboard', factory: $OnboardRoute._fromState);
+
+mixin $OnboardRoute on GoRouteData {
+  static OnboardRoute _fromState(GoRouterState state) => OnboardRoute();
+
+  @override
+  String get location => GoRouteData.$location('/onboard');
 
   @override
   void go(BuildContext context) => context.go(location);

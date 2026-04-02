@@ -201,7 +201,7 @@ class AppTheme {
     textButtonTheme: textButtonTheme(colorScheme),
     outlinedButtonTheme: outlinedButtonTheme(colorScheme),
     iconButtonTheme: iconButtonTheme(colorScheme),
-    inputDecorationTheme: _inputDecorationTheme,
+    inputDecorationTheme: inputDecorationTheme(colorScheme),
     cardTheme: _cardTheme,
     chipTheme: _chipTheme,
     progressIndicatorTheme: _progressIndicatorTheme,
@@ -364,7 +364,7 @@ class AppTheme {
         EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
       ),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
       ),
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -397,7 +397,7 @@ class AppTheme {
         EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
       ),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
       ),
       foregroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -427,7 +427,7 @@ class AppTheme {
         EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
       ),
       shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
       ),
       side: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
@@ -478,12 +478,12 @@ class AppTheme {
   );
 
   /// Input decoration theme
-  static final InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
-    contentPadding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingMD),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
-    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
-    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
-    errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
+  static InputDecorationTheme inputDecorationTheme(ColorScheme colorScheme) => InputDecorationTheme(
+    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: AppConstants.spacingSM),
+    border: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.outline)),
+    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.outline)),
+    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.primary)),
+    errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.error)),
   );
 
   /// App bar theme for light mode
