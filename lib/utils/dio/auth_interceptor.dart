@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:rentify_app/utils/prefs_manager.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'api_exception.dart';
 
 /// Header key used to skip auth (e.g. login, refresh endpoints).
@@ -8,23 +9,6 @@ const _kSkipAuth = 'X-Skip-Auth';
 
 /// Marker added to retried requests so we don't retry twice.
 const _kRetried = 'X-Retried';
-
-/// Called when token refresh succeeds – useful for updating UI state.
-typedef OnTokenRefreshed = void Function(String newAccessToken, String newRefreshToken);
-
-/// Called when refresh fails and the user must log in again.
-typedef OnSessionExpired = void Function();
-
-/// Refresh token response model.
-final class TokenPair {
-  const TokenPair({required this.accessToken, required this.refreshToken});
-  final String accessToken;
-  final String refreshToken;
-}
-
-/// Signature the caller must provide to perform the actual refresh call.
-/// Throw [TokenRefreshException] on failure.
-typedef RefreshCallback = Future<TokenPair> Function(String refreshToken);
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -34,16 +18,11 @@ typedef RefreshCallback = Future<TokenPair> Function(String refreshToken);
 ///      replay queued requests, then continue.
 ///   3. If refresh also fails – clear tokens and fire [onSessionExpired].
 class AuthInterceptor extends QueuedInterceptor {
-  AuthInterceptor({required Dio dio, this.onTokenRefreshed, this.onSessionExpired}) : _dio = dio;
-
-  final _prefNamespace = "auth";
-  final _prefKeyAccessToken = "access_token";
-  final _prefKeyRefreshToken = "refresh_token";
+  AuthInterceptor({required Dio dio}) : _dio = dio;
 
   final Dio _dio;
-  late final NamespacedPrefs _prefs = PrefsManager.instance.namespace(_prefNamespace);
-  final OnTokenRefreshed? onTokenRefreshed;
-  final OnSessionExpired? onSessionExpired;
+
+  final auth = Supabase.instance.client.auth;
 
   // Tracks whether a refresh is already in-flight.
   bool _isRefreshing = false;
@@ -61,7 +40,7 @@ class AuthInterceptor extends QueuedInterceptor {
       return handler.next(options);
     }
 
-    final token = _prefs.getString(_prefKeyAccessToken);
+    final token = auth.currentSession?.accessToken;
     if (token != null) {
       options.headers['Authorization'] = 'Bearer $token';
     }
@@ -100,26 +79,18 @@ class AuthInterceptor extends QueuedInterceptor {
     _isRefreshing = true;
 
     try {
-      final refreshToken = _prefs.getString(_prefKeyRefreshToken);
-      if (refreshToken == null) throw const TokenRefreshException(message: 'No refresh token stored');
-
-      // TODO: implement refresh token
-      final pair = await Future.value(TokenPair(accessToken: "", refreshToken: ""));
-      // _prefs.setString(_prefKeyAccessToken, pair.accessToken);
-      // _prefs.setString(_prefKeyRefreshToken, pair.refreshToken);
-      onTokenRefreshed?.call(pair.accessToken, pair.refreshToken);
+      final result = await auth.refreshSession();
+      final newToken = result.session!.accessToken;
 
       // Replay the original request with the new token.
-      final retryResponse = await _retry(options, pair.accessToken);
+      final retryResponse = await _retry(options, newToken);
 
       // Flush the queue – everyone gets the new token.
-      _flushQueue(newAccessToken: pair.accessToken);
+      _flushQueue(newAccessToken: newToken);
 
       return handler.resolve(retryResponse);
     } on TokenRefreshException catch (e) {
       _rejectQueue(e);
-      _prefs.clearNamespace();
-      onSessionExpired?.call();
       return handler.next(DioException(requestOptions: options, error: e, type: DioExceptionType.badResponse));
     } on DioException catch (e) {
       _rejectQueue(e);

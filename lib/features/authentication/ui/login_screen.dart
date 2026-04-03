@@ -9,6 +9,7 @@ import 'package:rentify_app/constants/assets.dart';
 import 'package:rentify_app/features/authentication/provider/login_view_model.dart';
 import 'package:rentify_app/routing/routes.dart';
 import 'package:rentify_app/utils/form/validation.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -33,6 +34,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(loginViewModelProvider);
     final vm = ref.read(loginViewModelProvider.notifier);
+
+    String? errorTxt;
+
+    if (state.hasError && state.error is AuthApiException) {
+      final error = state.error as AuthApiException;
+      errorTxt = error.statusCode == "400" ? "Invalid email or password" : null;
+    }
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -67,7 +75,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       obscureText: true,
                       controller: _passwordController,
                       decoration: InputDecoration(labelText: "Password"),
-                      validator: validatePassword,
+                      forceErrorText: errorTxt,
+                      onChanged: (_) {
+                        if (state.hasError) {
+                          vm.clearError();
+                        }
+                      },
                     ),
                     context.gapMD,
                     Row(

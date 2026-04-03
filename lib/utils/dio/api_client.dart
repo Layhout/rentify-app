@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rentify_app/utils/dio/api_exception.dart';
 import 'package:rentify_app/utils/dio/auth_interceptor.dart';
 import 'package:rentify_app/utils/dio/error_interceptor.dart';
@@ -8,8 +9,6 @@ import 'package:rentify_app/utils/dio/logging_interceptor.dart';
 final class ApiClientConfig {
   const ApiClientConfig({
     required this.baseUrl,
-    this.onTokenRefreshed,
-    this.onSessionExpired,
     this.connectTimeoutMs = 15000,
     this.receiveTimeoutMs = 30000,
     this.sendTimeoutMs = 30000,
@@ -20,8 +19,6 @@ final class ApiClientConfig {
   });
 
   final String baseUrl;
-  final OnTokenRefreshed? onTokenRefreshed;
-  final OnSessionExpired? onSessionExpired;
   final int connectTimeoutMs;
   final int receiveTimeoutMs;
   final int sendTimeoutMs;
@@ -75,10 +72,7 @@ final class ApiClient {
       _dio.interceptors.add(LoggingInterceptor(enabled: true, logBody: config.logBody));
     }
 
-    _dio.interceptors.add(
-      AuthInterceptor(dio: _dio, onTokenRefreshed: config.onTokenRefreshed, onSessionExpired: config.onSessionExpired),
-    );
-
+    _dio.interceptors.add(AuthInterceptor(dio: _dio));
     _dio.interceptors.add(ErrorInterceptor());
   }
 
@@ -210,7 +204,7 @@ final class ApiClient {
       );
       return response.data as T;
     } on DioException catch (e) {
-      print('🔴 ======> 213: $e');
+      debugPrint('🔴 ======> 213: $e');
       final apiEx = e.error is ApiException
           ? e.error! as ApiException
           : UnknownApiException(message: e.message ?? 'Unknown error');

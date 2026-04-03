@@ -19,4 +19,8 @@ class LoginViewModel extends _$LoginViewModel {
       await supabase.auth.signInWithPassword(email: email, password: password);
     });
   }
+
+  void clearError() {
+    state = AsyncValue.data(null);
+  }
 }
