@@ -33,7 +33,7 @@ final class SignupViewModelProvider
   SignupViewModel create() => SignupViewModel();
 }
 
-String _$signupViewModelHash() => r'bf9e7dd74d70f8f7a5927bf67862ba2fccb485dd';
+String _$signupViewModelHash() => r'8282aa7b424a8e4c8498fb29e35a3775557209c9';
 
 abstract class _$SignupViewModel extends $AsyncNotifier<void> {
   FutureOr<void> build();

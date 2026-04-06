@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rentify_app/features/authentication/ui/home_screen.dart';
+import 'package:rentify_app/features/home/ui/home_screen.dart';
 import 'package:rentify_app/features/authentication/ui/login_screen.dart';
 import 'package:rentify_app/features/authentication/ui/onboard_screen.dart';
 import 'package:rentify_app/features/authentication/ui/signup_screen.dart';

@@ -488,24 +488,26 @@ class AppTheme {
 
   /// App bar theme for light mode
   static final AppBarTheme _lightAppBarTheme = AppBarTheme(
-    elevation: AppConstants.elevationLevel1,
+    surfaceTintColor: Colors.transparent,
+    elevation: AppConstants.elevationLevel0,
     centerTitle: false,
     titleSpacing: AppConstants.spacingMD,
-    scrolledUnderElevation: AppConstants.elevationLevel1,
+    scrolledUnderElevation: AppConstants.elevationLevel0,
   );
 
   /// App bar theme for dark mode
   static final AppBarTheme _darkAppBarTheme = AppBarTheme(
-    elevation: AppConstants.elevationLevel1,
+    surfaceTintColor: Colors.transparent,
+    elevation: AppConstants.elevationLevel0,
     centerTitle: false,
     titleSpacing: AppConstants.spacingMD,
-    scrolledUnderElevation: AppConstants.elevationLevel1,
+    scrolledUnderElevation: AppConstants.elevationLevel0,
   );
 
   /// Card theme
   static final CardThemeData _cardTheme = CardThemeData(
     elevation: AppConstants.elevationLevel1,
-    margin: EdgeInsets.all(AppConstants.spacingSM),
+    margin: EdgeInsets.all(0),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusLG)),
   );
 

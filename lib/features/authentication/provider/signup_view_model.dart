@@ -1,4 +1,5 @@
 import 'package:rentify_app/config/providers/supabase/supabase_provider.dart';
+import 'package:rentify_app/features/authentication/provider/login_view_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -21,5 +22,16 @@ class SignupViewModel extends _$SignupViewModel {
 
     state = result;
     return !result.hasError;
+  }
+
+  Future<void> signupWithGoogle() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await ref.read(loginViewModelProvider.notifier).loginWithGoogle();
+    });
+  }
+
+  void clearError() {
+    state = const AsyncData(null);
   }
 }

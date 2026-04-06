@@ -9,6 +9,7 @@ import 'package:rentify_app/constants/assets.dart';
 import 'package:rentify_app/features/authentication/provider/signup_view_model.dart';
 import 'package:rentify_app/routing/routes.dart';
 import 'package:rentify_app/utils/form/validation.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -33,10 +34,31 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     super.dispose();
   }
 
+  void handleSignup() async {
+    final state = ref.watch(signupViewModelProvider);
+    final vm = ref.read(signupViewModelProvider.notifier);
+
+    if (state.isLoading) return;
+    if (!_formKey.currentState!.validate()) return;
+    final router = GoRouter.of(context);
+    final isSuccess = await vm.signupWithEmailAndPassword(_emailController.text, _passwordController.text);
+    if (!mounted) return;
+    if (isSuccess) {
+      router.go(Routes.login);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(signupViewModelProvider);
-    final vm = ref.read(signupViewModelProvider.notifier);
+    final vm = ref.read(signupViewModelProvider.notifier); //AuthException
+
+    String? errorTxt;
+
+    if (state.hasError && state.error is AuthException) {
+      final error = state.error as AuthApiException;
+      errorTxt = error.message;
+    }
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -65,6 +87,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       controller: _emailController,
                       decoration: InputDecoration(labelText: "Email"),
                       validator: validateEmail,
+                      forceErrorText: errorTxt,
+                      onChanged: (_) {
+                        if (state.hasError) {
+                          vm.clearError();
+                        }
+                      },
                     ),
                     context.gapLG,
                     TextFormField(
@@ -88,19 +116,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
-                        onPressed: () async {
-                          if (state.isLoading) return;
-                          if (!_formKey.currentState!.validate()) return;
-                          final router = GoRouter.of(context);
-                          final isSuccess = await vm.signupWithEmailAndPassword(
-                            _emailController.text,
-                            _passwordController.text,
-                          );
-                          if (!mounted) return;
-                          if (isSuccess) {
-                            router.go(Routes.login);
-                          }
-                        },
+                        onPressed: handleSignup,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -13,7 +13,7 @@ part of 'home_view_model.dart';
 final homeViewModelProvider = HomeViewModelProvider._();
 
 final class HomeViewModelProvider
-    extends $AsyncNotifierProvider<HomeViewModel, void> {
+    extends $AsyncNotifierProvider<HomeViewModel, HomeState> {
   HomeViewModelProvider._()
     : super(
         from: null,
@@ -33,19 +33,19 @@ final class HomeViewModelProvider
   HomeViewModel create() => HomeViewModel();
 }
 
-String _$homeViewModelHash() => r'6b571c971c21c59d552b1d089e0996b692c90909';
+String _$homeViewModelHash() => r'66e434744442b8fdb125f967228947ab6c7758e5';
 
-abstract class _$HomeViewModel extends $AsyncNotifier<void> {
-  FutureOr<void> build();
+abstract class _$HomeViewModel extends $AsyncNotifier<HomeState> {
+  FutureOr<HomeState> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<void>, void>;
+    final ref = this.ref as $Ref<AsyncValue<HomeState>, HomeState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<void>, void>,
-              AsyncValue<void>,
+              AnyNotifier<AsyncValue<HomeState>, HomeState>,
+              AsyncValue<HomeState>,
               Object?,
               Object?
             >;

@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
-        child: Center(child: Text("Rentify")),
+        child: Center(child: Text("Rentify Splash Screen")),
       ),
     );
   }

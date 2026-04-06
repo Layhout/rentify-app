@@ -32,6 +32,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(loginViewModelProvider, (previous, next) {
+      if (previous == next) return;
+
+      if (next.hasError && next.error is AuthException) {
+        final error = next.error as AuthException;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.message)));
+      }
+    });
+
     final state = ref.watch(loginViewModelProvider);
     final vm = ref.read(loginViewModelProvider.notifier);
 
@@ -132,7 +141,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               context.gapXXL,
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await vm.loginWithGoogle();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
