@@ -191,11 +191,10 @@ class AppTheme {
       headlineLarge: GoogleFonts.playfairDisplay(textStyle: _textTheme.headlineLarge),
       headlineMedium: GoogleFonts.playfairDisplay(textStyle: _textTheme.headlineMedium),
       headlineSmall: GoogleFonts.playfairDisplay(textStyle: _textTheme.headlineSmall),
-      titleLarge: GoogleFonts.playfairDisplay(textStyle: _textTheme.titleLarge),
-      titleMedium: GoogleFonts.playfairDisplay(textStyle: _textTheme.titleMedium),
-      titleSmall: GoogleFonts.playfairDisplay(textStyle: _textTheme.titleSmall),
     ),
-    appBarTheme: colorScheme.brightness == Brightness.light ? _lightAppBarTheme : _darkAppBarTheme,
+    appBarTheme: colorScheme.brightness == Brightness.light
+        ? lightAppBarTheme(colorScheme)
+        : darkAppBarTheme(colorScheme),
     elevatedButtonTheme: elevatedButtonTheme(colorScheme),
     filledButtonTheme: filledButtonTheme(colorScheme),
     textButtonTheme: textButtonTheme(colorScheme),
@@ -487,8 +486,9 @@ class AppTheme {
   );
 
   /// App bar theme for light mode
-  static final AppBarTheme _lightAppBarTheme = AppBarTheme(
+  static AppBarTheme lightAppBarTheme(ColorScheme colorScheme) => AppBarTheme(
     surfaceTintColor: Colors.transparent,
+    backgroundColor: colorScheme.surface,
     elevation: AppConstants.elevationLevel0,
     centerTitle: false,
     titleSpacing: AppConstants.spacingMD,
@@ -496,8 +496,9 @@ class AppTheme {
   );
 
   /// App bar theme for dark mode
-  static final AppBarTheme _darkAppBarTheme = AppBarTheme(
+  static AppBarTheme darkAppBarTheme(ColorScheme colorScheme) => AppBarTheme(
     surfaceTintColor: Colors.transparent,
+    backgroundColor: colorScheme.surface,
     elevation: AppConstants.elevationLevel0,
     centerTitle: false,
     titleSpacing: AppConstants.spacingMD,
