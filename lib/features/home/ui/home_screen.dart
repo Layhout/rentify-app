@@ -28,48 +28,51 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _currentPageIndex == 0
-          ? AppBar(
-              title: Text(
-                "Rentify",
-                style: context.textTheme.labelLarge?.copyWith(
-                  color: context.colorScheme.primary,
-                  fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: _currentPageIndex == 0
+            ? AppBar(
+                title: Text(
+                  "Rentify",
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              actions: [IconButton(icon: Icon(Icons.notifications), onPressed: () {})],
-            )
-          : null,
-      bottomNavigationBar: BottomNavBar(
-        destinations: homeNavStacks,
-        selectedIndex: _currentPageIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _currentPageIndex = index;
-          });
-        },
-      ),
-      body: IndexedStack(
-        index: _currentPageIndex,
-        children: homeNavStacks
-            .map(
-              (stack) => switch (stack.label) {
-                'Home' => HomeTab(
-                  onSearchTap: () {
-                    setState(() {
-                      _currentPageIndex = 1;
-                    });
-                  },
-                ),
-                'Search' => SearchTab(),
-                'New' => NewItemFormTab(),
-                'Favorite' => FavoriteTab(),
-                'Profile' => ProfileTab(),
-                _ => const SizedBox.shrink(),
-              },
-            )
-            .toList(),
+                actions: [IconButton(icon: Icon(Icons.notifications), onPressed: () {})],
+              )
+            : null,
+        bottomNavigationBar: BottomNavBar(
+          destinations: homeNavStacks,
+          selectedIndex: _currentPageIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              _currentPageIndex = index;
+            });
+          },
+        ),
+        body: IndexedStack(
+          index: _currentPageIndex,
+          children: homeNavStacks
+              .map(
+                (stack) => switch (stack.label) {
+                  'Home' => HomeTab(
+                    onSearchTap: () {
+                      setState(() {
+                        _currentPageIndex = 1;
+                      });
+                    },
+                  ),
+                  'Search' => SearchTab(),
+                  'New' => NewItemFormTab(),
+                  'Favorite' => FavoriteTab(),
+                  'Profile' => ProfileTab(),
+                  _ => const SizedBox.shrink(),
+                },
+              )
+              .toList(),
+        ),
       ),
     );
   }
