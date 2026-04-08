@@ -117,6 +117,7 @@ class AppTheme {
     sliderTheme: _sliderTheme,
     scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
+    splashColor: Colors.transparent,
   );
 
   // ═══════════════════════════════════════════════════════════════════════════════
@@ -218,47 +219,51 @@ class AppTheme {
   );
 
   /// Elevated button theme - M3 compliant with WidgetStateProperty
-  static ElevatedButtonThemeData elevatedButtonTheme(ColorScheme colorScheme) => ElevatedButtonThemeData(
-    style: ButtonStyle(
-      elevation: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.disabled)) return 0;
-        if (states.contains(WidgetState.hovered)) return AppConstants.elevationLevel3;
-        if (states.contains(WidgetState.pressed)) return AppConstants.elevationLevel1;
-        return AppConstants.elevationLevel2;
-      }),
-      padding: WidgetStateProperty.all(
-        EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
-      ),
-      shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
-      ),
-      backgroundColor: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.disabled)) {
-          return colorScheme.onSurface.withValues(alpha: 0.12);
-        }
-        return colorScheme.primary;
-      }),
-      foregroundColor: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.disabled)) {
-          return colorScheme.onSurface.withValues(alpha: 0.38);
-        }
-        return colorScheme.onPrimary;
-      }),
-      overlayColor: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.pressed)) {
-          return colorScheme.onPrimary.withValues(alpha: 0.1);
-        }
-        if (states.contains(WidgetState.hovered)) {
-          return colorScheme.onPrimary.withValues(alpha: 0.08);
-        }
-        if (states.contains(WidgetState.focused)) {
-          return colorScheme.onPrimary.withValues(alpha: 0.1);
-        }
-        return null;
-      }),
-      shadowColor: WidgetStateProperty.all(colorScheme.shadow),
-    ),
-  );
+  static ElevatedButtonThemeData elevatedButtonTheme(ColorScheme colorScheme) =>
+      ElevatedButtonThemeData(
+        style: ButtonStyle(
+          elevation: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) return 0;
+            if (states.contains(WidgetState.hovered)) return AppConstants.elevationLevel3;
+            if (states.contains(WidgetState.pressed)) return AppConstants.elevationLevel1;
+            return AppConstants.elevationLevel2;
+          }),
+          padding: WidgetStateProperty.all(
+            EdgeInsets.symmetric(
+              horizontal: AppConstants.spacingLG,
+              vertical: AppConstants.spacingMD,
+            ),
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusMD)),
+          ),
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return colorScheme.onSurface.withValues(alpha: 0.12);
+            }
+            return colorScheme.primary;
+          }),
+          foregroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return colorScheme.onSurface.withValues(alpha: 0.38);
+            }
+            return colorScheme.onPrimary;
+          }),
+          overlayColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return colorScheme.onPrimary.withValues(alpha: 0.1);
+            }
+            if (states.contains(WidgetState.hovered)) {
+              return colorScheme.onPrimary.withValues(alpha: 0.08);
+            }
+            if (states.contains(WidgetState.focused)) {
+              return colorScheme.onPrimary.withValues(alpha: 0.1);
+            }
+            return null;
+          }),
+          shadowColor: WidgetStateProperty.all(colorScheme.shadow),
+        ),
+      );
 
   /// Filled button theme - M3 compliant with WidgetStateProperty
   static FilledButtonThemeData filledButtonTheme(ColorScheme colorScheme) => FilledButtonThemeData(
@@ -324,40 +329,44 @@ class AppTheme {
   );
 
   /// Outlined button theme - M3 compliant with WidgetStateProperty
-  static OutlinedButtonThemeData outlinedButtonTheme(ColorScheme colorScheme) => OutlinedButtonThemeData(
-    style: ButtonStyle(
-      padding: WidgetStateProperty.all(
-        EdgeInsets.symmetric(horizontal: AppConstants.spacingLG, vertical: AppConstants.spacingMD),
-      ),
-      shape: WidgetStateProperty.all(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
-      ),
-      side: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.disabled)) {
-          return BorderSide(color: colorScheme.onSurface.withValues(alpha: 0.12));
-        }
-        if (states.contains(WidgetState.focused)) {
-          return BorderSide(color: colorScheme.primary);
-        }
-        return BorderSide(color: colorScheme.outline);
-      }),
-      foregroundColor: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.disabled)) {
-          return colorScheme.onSurface.withValues(alpha: 0.38);
-        }
-        return colorScheme.primary;
-      }),
-      overlayColor: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.pressed)) {
-          return colorScheme.primary.withValues(alpha: 0.1);
-        }
-        if (states.contains(WidgetState.hovered)) {
-          return colorScheme.primary.withValues(alpha: 0.08);
-        }
-        return null;
-      }),
-    ),
-  );
+  static OutlinedButtonThemeData outlinedButtonTheme(ColorScheme colorScheme) =>
+      OutlinedButtonThemeData(
+        style: ButtonStyle(
+          padding: WidgetStateProperty.all(
+            EdgeInsets.symmetric(
+              horizontal: AppConstants.spacingLG,
+              vertical: AppConstants.spacingMD,
+            ),
+          ),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
+          ),
+          side: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return BorderSide(color: colorScheme.onSurface.withValues(alpha: 0.12));
+            }
+            if (states.contains(WidgetState.focused)) {
+              return BorderSide(color: colorScheme.primary);
+            }
+            return BorderSide(color: colorScheme.outline);
+          }),
+          foregroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return colorScheme.onSurface.withValues(alpha: 0.38);
+            }
+            return colorScheme.primary;
+          }),
+          overlayColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed)) {
+              return colorScheme.primary.withValues(alpha: 0.1);
+            }
+            if (states.contains(WidgetState.hovered)) {
+              return colorScheme.primary.withValues(alpha: 0.08);
+            }
+            return null;
+          }),
+        ),
+      );
 
   /// Icon button theme - M3 compliant with WidgetStateProperty
   static IconButtonThemeData iconButtonTheme(ColorScheme colorScheme) => IconButtonThemeData(
@@ -385,7 +394,9 @@ class AppTheme {
     contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: AppConstants.spacingSM),
     border: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.outline)),
     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.outline)),
-    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.primary, width: 2)),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: colorScheme.primary, width: 2),
+    ),
     errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.error)),
   );
 
@@ -418,7 +429,10 @@ class AppTheme {
 
   /// Chip theme
   static final ChipThemeData _chipTheme = ChipThemeData(
-    padding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
+    padding: EdgeInsets.symmetric(
+      horizontal: AppConstants.spacingMD,
+      vertical: AppConstants.spacingSM,
+    ),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppConstants.radiusFull)),
   );
 
@@ -432,13 +446,15 @@ class AppTheme {
   );
 
   /// Bottom navigation bar theme
-  static final BottomNavigationBarThemeData _bottomNavigationBarTheme = BottomNavigationBarThemeData(
-    type: BottomNavigationBarType.fixed,
-  );
+  static final BottomNavigationBarThemeData _bottomNavigationBarTheme =
+      BottomNavigationBarThemeData(type: BottomNavigationBarType.fixed);
 
   /// Tab bar theme
   static final TabBarThemeData _tabBarTheme = TabBarThemeData(
-    labelPadding: EdgeInsets.symmetric(horizontal: AppConstants.spacingMD, vertical: AppConstants.spacingSM),
+    labelPadding: EdgeInsets.symmetric(
+      horizontal: AppConstants.spacingMD,
+      vertical: AppConstants.spacingSM,
+    ),
   );
 
   /// Switch theme - uses colorScheme from theme() parameter

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rentify_app/common_widgets/avatar.dart';
-import 'package:rentify_app/common_widgets/skeleton.dart';
 import 'package:rentify_app/common_widgets/tag.dart';
 import 'package:rentify_app/common_widgets/theme/app_constants.dart';
 import 'package:rentify_app/common_widgets/theme/theme_extensions.dart';
@@ -19,7 +18,6 @@ class FeatureCard extends StatelessWidget {
             children: [
               CachedNetworkImage(
                 imageUrl: "https://picsum.photos/300/200",
-                placeholder: (context, url) => Skeleton(),
                 fit: BoxFit.cover,
               ).size(height: 200, width: double.infinity),
               Positioned(
@@ -53,7 +51,11 @@ class FeatureCard extends StatelessWidget {
                     color: context.colorScheme.surfaceContainerHighest,
                     child: Row(
                       children: [
-                        Icon(Icons.star, size: AppConstants.spacingMD, color: context.colorScheme.onPrimaryContainer),
+                        Icon(
+                          Icons.star,
+                          size: AppConstants.spacingMD,
+                          color: context.colorScheme.onPrimaryContainer,
+                        ),
                         context.gapXS,
                         Text("4.8", style: context.textTheme.labelMedium),
                       ],
@@ -64,11 +66,17 @@ class FeatureCard extends StatelessWidget {
               context.gapXS,
               Row(
                 children: [
-                  Icon(Icons.location_on, size: AppConstants.spacingMD, color: context.colorScheme.outline),
+                  Icon(
+                    Icons.location_on,
+                    size: AppConstants.spacingMD,
+                    color: context.colorScheme.outline,
+                  ),
                   context.gapXS,
                   Text(
                     "0.5 km away",
-                    style: context.textTheme.labelMedium?.copyWith(color: context.colorScheme.outline),
+                    style: context.textTheme.labelMedium?.copyWith(
+                      color: context.colorScheme.outline,
+                    ),
                   ),
                 ],
               ),

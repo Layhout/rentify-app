@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:rentify_app/common_widgets/skeleton.dart';
 import 'package:rentify_app/common_widgets/theme/app_constants.dart';
 import 'package:rentify_app/common_widgets/theme/theme_extensions.dart';
 
@@ -14,7 +13,10 @@ class NearYou extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text("Near you", style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)).expanded(),
+            Text(
+              "Near you",
+              style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ).expanded(),
             TextButton(onPressed: () {}, child: Text("See all")),
           ],
         ).paddingOnly(left: AppConstants.spacingMD),
@@ -32,7 +34,6 @@ class NearYou extends StatelessWidget {
                     width: double.infinity,
                     height: 120,
                     imageUrl: "https://picsum.photos/400/300?random=$i",
-                    placeholder: (_, _) => Skeleton(),
                     fit: BoxFit.cover,
                   ),
                   Column(
