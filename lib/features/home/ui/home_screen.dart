@@ -1,19 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rentify_app/common_widgets/theme/theme_extensions.dart';
 import 'package:rentify_app/features/home/ui/widgets/favorite_tab.dart';
 import 'package:rentify_app/features/home/ui/widgets/home_tab.dart';
-import 'package:rentify_app/features/home/ui/widgets/new_item_form_tab.dart';
 import 'package:rentify_app/features/home/ui/widgets/profile_tab.dart';
 import 'package:rentify_app/features/home/ui/widgets/search_tab.dart';
 import 'package:rentify_app/features/home/ui/widgets/bottom_nav_bar.dart';
+import 'package:rentify_app/routing/routes.dart';
 
 final homeNavStacks = <NavigationDestination>[
-  NavigationDestination(label: "Home", icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home)),
-  NavigationDestination(label: "Search", icon: Icon(Icons.search_outlined), selectedIcon: Icon(Icons.search)),
-  NavigationDestination(label: "New", icon: Icon(Icons.add_circle_outline), selectedIcon: Icon(Icons.add_circle)),
-  NavigationDestination(label: "Favorite", icon: Icon(Icons.favorite_outline), selectedIcon: Icon(Icons.favorite)),
-  NavigationDestination(label: "Profile", icon: Icon(Icons.person_outline), selectedIcon: Icon(Icons.person)),
+  NavigationDestination(
+    label: "Home",
+    icon: Icon(Icons.home_outlined),
+    selectedIcon: Icon(Icons.home),
+  ),
+  NavigationDestination(
+    label: "Search",
+    icon: Icon(Icons.search_outlined),
+    selectedIcon: Icon(Icons.search),
+  ),
+  NavigationDestination(
+    label: "New",
+    icon: Icon(Icons.add_circle_outline),
+    selectedIcon: Icon(Icons.add_circle),
+  ),
+  NavigationDestination(
+    label: "Favorite",
+    icon: Icon(Icons.favorite_outline),
+    selectedIcon: Icon(Icons.favorite),
+  ),
+  NavigationDestination(
+    label: "Profile",
+    icon: Icon(Icons.person_outline),
+    selectedIcon: Icon(Icons.person),
+  ),
 ];
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -47,6 +68,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           destinations: homeNavStacks,
           selectedIndex: _currentPageIndex,
           onDestinationSelected: (index) {
+            if (homeNavStacks[index].label == 'New') {
+              context.push(Routes.listingForm);
+              return;
+            }
             setState(() {
               _currentPageIndex = index;
             });
@@ -65,7 +90,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     },
                   ),
                   'Search' => SearchTab(),
-                  'New' => NewItemFormTab(),
                   'Favorite' => FavoriteTab(),
                   'Profile' => ProfileTab(),
                   _ => const SizedBox.shrink(),

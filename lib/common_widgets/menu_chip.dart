@@ -44,7 +44,7 @@ class _MenuChipState extends State<MenuChip> {
           label: Row(
             spacing: AppConstants.spacingXS,
             children: [
-              Text(widget.label, style: context.textTheme.labelMedium),
+              Text("${widget.label}: $_selectedOption", style: context.textTheme.labelMedium),
               Icon(Icons.keyboard_arrow_down, size: AppConstants.spacingMD),
             ],
           ),

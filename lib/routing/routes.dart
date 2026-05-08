@@ -6,6 +6,7 @@ import 'package:rentify_app/features/authentication/ui/onboard_screen.dart';
 import 'package:rentify_app/features/authentication/ui/signup_screen.dart';
 import 'package:rentify_app/features/authentication/ui/splash_screen.dart';
 import 'package:rentify_app/features/joke/ui/joke_screen.dart';
+import 'package:rentify_app/features/listing/ui/listing_form_screen.dart';
 
 part 'routes.g.dart';
 
@@ -21,6 +22,7 @@ abstract final class Routes {
 
   // ----- Private Routes -----
   static const String home = '/home';
+  static const String listingForm = '/listing-form';
 }
 
 const List<String> publicRoutes = [Routes.login, Routes.signup, Routes.onboard, Routes.splash];
@@ -59,4 +61,10 @@ class SignupRoute extends GoRouteData with $SignupRoute {
 class OnboardRoute extends GoRouteData with $OnboardRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) => const OnboardScreen();
+}
+
+@TypedGoRoute<ListingFormRoute>(path: Routes.listingForm)
+class ListingFormRoute extends GoRouteData with $ListingFormRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const ListingFormScreen();
 }

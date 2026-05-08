@@ -41,7 +41,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     if (state.isLoading) return;
     if (!_formKey.currentState!.validate()) return;
     final router = GoRouter.of(context);
-    final isSuccess = await vm.signupWithEmailAndPassword(_emailController.text, _passwordController.text);
+    final isSuccess = await vm.signupWithEmailAndPassword(
+      _emailController.text,
+      _passwordController.text,
+    );
     if (!mounted) return;
     if (isSuccess) {
       router.go(Routes.login);
@@ -145,7 +148,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
               context.gapXXL,
               OutlinedButton(
-                onPressed: () {},
+                onPressed: vm.signupWithGoogle,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -166,7 +169,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         ..onTap = () {
                           context.push(Routes.login);
                         },
-                      style: context.textTheme.bodyMedium?.copyWith(color: context.colorScheme.primary),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: context.colorScheme.primary,
+                      ),
                     ),
                   ],
                 ),
